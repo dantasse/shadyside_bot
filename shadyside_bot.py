@@ -59,7 +59,22 @@ def get_shape(neighborhood):
     for shape in shapes:
         if shape['properties']['HOOD'].lower() == neighborhood.lower():
             return shapely.geometry.asShape(shape['geometry'])
- 
+
+# Given a string of text, returns all the foods that are in it. 1 and 2 word
+# phrases. Looks them up in the foods.txt file.
+foodlist = None
+def find_foods(foods_filename, text):
+    global foodlist
+    foods = []
+    if foodlist is None:
+        foodlist = [f.strip().lower() for f in open(foods_filename)]
+    words = text.split(' ') # TODO not awesome I know
+    bigrams = [' '.join(pair) for pair in zip(words, words[1:])]
+    foods += [bigram for bigram in bigrams if bigram.lower() in foodlist]
+    foods += [word for word in words if word.lower() in foodlist]
+    # TODO if you say "ice cream" it shouldn't return ice cream, ice, and cream.
+    return foods
+
 class TwitterStream:
     def __init__(self, neighborhood, timeout=False):
         self.set_credentials()
@@ -180,11 +195,13 @@ class TwitterStream:
                 lat = message['coordinates']['coordinates'][1]
                 if lon >= self.min_lon and lon <= self.max_lon and \
                         lat >= self.min_lat and lat <= self.max_lat:
-                    
                     point = shapely.geometry.Point(lon, lat)
                     if self.nghd_shape.contains(point):
-                        db[self.tweet_col].insert(dict(message))
-                        log('Got tweet with text: %s' % message.get('text').encode('utf-8'))
+                        foods = find_foods('drugs.txt', message['text'])
+                        # db[self.tweet_col].insert(dict(message))
+                        for food in foods:
+                            log(food)
+                        # log('Got tweet with text: %s' % message.get('text').encode('utf-8'))
 
         sys.stdout.flush()
         sys.stderr.flush()
@@ -199,15 +216,13 @@ if __name__ == '__main__':
     parser.add_argument('--neighborhood', '-n', required=True)
     args = parser.parse_args()
 
-    db = Connection('localhost', args.mongo_port)['tweet']
+    # db = Connection('localhost', args.mongo_port)['tweet']
 
     print "Getting stream in " + args.neighborhood + " on port " + str(args.mongo_port)
 
     timestamp = time.time()
-    errFile = open('logs/error.log', 'w')
-    outFile = open('logs/output.log', 'w')
+    outFile = open('logs/output_drugs_%s.log' % args.neighborhood, 'w')
     sys.stdout = outFile
-    sys.stderr = errFile
 
     ts = TwitterStream(args.neighborhood)
     ts.setup_connection()
