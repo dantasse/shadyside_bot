@@ -211,9 +211,7 @@ class TwitterStream:
                         lat >= self.min_lat and lat <= self.max_lat:
                     point = shapely.geometry.Point(lon, lat)
                     if self.nghd_shape.contains(point):
-                        simple_text = message['text'].translate(string.maketrans("",""), string.punctuation).lower()
-                        foods = find_foods('drugs.txt', simple_text)
-                        # db[self.tweet_col].insert(dict(message))
+                        simple_text = ''.join(ch for ch in message['text'] if ch not in string.punctuation).lower()
                         log(message.get('text').encode('utf-8'))
                         for food in find_foods(simple_text, 'foods.txt'):
                             log('food: ' + food)
@@ -239,7 +237,9 @@ if __name__ == '__main__':
 
     timestamp = time.time()
     outFile = open('logs/output_%s.log' % args.neighborhood, 'w')
+    errFile = open('logs/error_%s.log' % args.neighborhood, 'w')
     sys.stdout = outFile
+    sys.stderr = errFile
 
     ts = TwitterStream(args.neighborhood)
     ts.setup_connection()

@@ -25,6 +25,7 @@ batter
 beancurd
 beans
 beef
+beer
 beet
 bell pepper
 berry
@@ -38,6 +39,7 @@ bland
 blood orange
 blueberry
 boil
+bourbon
 bowl
 boysenberry
 bran
@@ -85,6 +87,7 @@ chew
 chicken
 chick peas
 chili
+chinese food
 chips
 chives
 chocolate
@@ -228,6 +231,7 @@ iced tea
 icing
 ice cream
 ice cream cone
+indian food
 jackfruit
 jalapeno
 jam
@@ -292,6 +296,7 @@ meatloaf
 melon
 menu
 meringue
+mexican food
 micronutrient
 milk
 milkshake
@@ -502,7 +507,6 @@ teapot
 teriyaki
 thyme
 toast
-toaster
 toffee
 tofu
 tomatillo
@@ -534,6 +538,10 @@ watermelon
 wheat
 whey
 whipped cream
+whiskey
+whisky
+wine
+wings
 wok
 yam
 yeast
