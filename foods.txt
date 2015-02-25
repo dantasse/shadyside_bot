@@ -3,8 +3,6 @@ alfalfa sprouts
 almond
 anchovy
 anise
-appetizer
-appetite
 apple
 apricot
 artichoke
@@ -59,7 +57,6 @@ burrito
 butter
 butter bean
 cake
-calorie
 candy
 candy apple
 cantaloupe
@@ -107,8 +104,6 @@ coffee
 coleslaw
 collard greens
 comestibles
-cook
-cookbook
 cookie
 corn
 cornflakes
@@ -138,9 +133,6 @@ dandelion greens
 Danish pastry
 dates
 dessert
-diet
-digest
-digestive system
 dill
 dine
 diner
@@ -153,9 +145,7 @@ dragonfruit
 dressing
 dried
 drink
-dry
 durian
-eat
 Edam cheese
 edible
 egg
@@ -163,16 +153,12 @@ eggplant
 elderberry
 endive
 entree
-fast
-fat
+fast food
 fava bans
 feast
-fed
-feed
 fennel
 fig
 fillet
-fire
 fish
 flan
 flax
@@ -180,10 +166,9 @@ flour
 food
 food pyramid
 foodstuffs
-fork
-freezer
 French fries
 fried
+fries
 fritter
 frosting
 fruit
@@ -192,17 +177,16 @@ garlic
 gastronomy
 gelatin
 ginger
-gingerale
+ginger ale
 gingerbread
-glasses
 Gouda cheese
 grain
 granola
 grape
 grapefruit
-grated
+grated cheese
 gravy
-greenbean
+green bean
 greens
 green tea
 grub
@@ -223,9 +207,6 @@ hot
 hot dog
 hot sauce
 hummus
-hunger
-hungry
-ice
 iceberg lettuce
 iced tea
 icing
@@ -247,15 +228,11 @@ junk food
 kale
 kebab
 ketchup
-kettle
 kettle corn
 kidney beans
-kitchen
 kiwi
-knife
 kohlrabi
 kumquat
-ladle
 lamb
 lard
 lasagna
@@ -294,10 +271,8 @@ meat
 meatball
 meatloaf
 melon
-menu
 meringue
 mexican food
-micronutrient
 milk
 milkshake
 millet
@@ -310,7 +285,6 @@ molasses
 mole sauce
 mozzarella
 muffin
-mug
 munch
 mushroom
 mussels
@@ -370,10 +344,7 @@ pie
 pilaf
 pineapple
 pita bread
-pitcher
 pizza
-plate
-platter
 plum
 poached
 pomegranate
@@ -404,9 +375,7 @@ raisin
 raspberry
 rations
 ravioli
-recipe
 refreshments
-refrigerator
 relish
 restaurant
 rhubarb
@@ -414,7 +383,6 @@ ribs
 rice
 roast
 roll
-rolling pin
 romaine
 rosemary
 rye
@@ -462,8 +430,6 @@ spices
 spicy
 spinach
 split peas
-spoon
-spork
 sprinkles
 sprouts
 spuds
@@ -519,14 +485,11 @@ turkey
 turmeric
 turnip
 ugli fruit
-unleavened
-utensils
 vanilla
 veal
 vegetable
 venison
 vinegar
-vitamin
 wafer
 waffle
 walnut
