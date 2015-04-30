@@ -19,7 +19,7 @@
 # From https://github.com/arngarden/TwitterStream/blob/master/TwitterStream.py
 
 import sys, argparse, inspect, time, pycurl, urllib, json, ConfigParser, ujson
-import requests, HTMLParser, traceback, shapely.geometry
+import requests, HTMLParser, traceback, shapely.geometry, string
 import oauth2 as oauth
 
 API_ENDPOINT_URL = 'https://stream.twitter.com/1.1/statuses/filter.json'
@@ -62,7 +62,7 @@ def get_shape(neighborhood):
 # Given a string of text, returns all the foods that are in it. 1 and 2 word
 # phrases. Looks them up in the foods.txt file.
 foodlist = None
-def find_foods(foods_filename, text):
+def find_foods(text, foods_filename):
     global foodlist
     foods = []
     if foodlist is None:
@@ -73,6 +73,20 @@ def find_foods(foods_filename, text):
     foods += [word for word in words if word.lower() in foodlist]
     # TODO if you say "ice cream" it shouldn't return ice cream, ice, and cream.
     return foods
+
+druglist = None
+def find_drugs(text, drugs_filename):
+    global druglist
+    drugs = []
+    if druglist is None:
+        druglist = [f.strip().lower() for f in open(drugs_filename)]
+        druglist = [f.strip().lower() for f in open(drugs_filename)]
+    words = text.split(' ') # TODO not awesome I know
+    bigrams = [' '.join(pair) for pair in zip(words, words[1:])]
+    drugs += [bigram for bigram in bigrams if bigram.lower() in druglist]
+    drugs += [word for word in words if word.lower() in druglist]
+    # TODO if you say "ice cream" it shouldn't return ice cream, ice, and cream.
+    return drugs
 
 class TwitterStream:
     def __init__(self, neighborhood, timeout=False):
@@ -196,11 +210,12 @@ class TwitterStream:
                         lat >= self.min_lat and lat <= self.max_lat:
                     point = shapely.geometry.Point(lon, lat)
                     if self.nghd_shape.contains(point):
-                        foods = find_foods('drugs.txt', message['text'])
-                        # db[self.tweet_col].insert(dict(message))
-                        for food in foods:
-                            log(food)
-                        # log('Got tweet with text: %s' % message.get('text').encode('utf-8'))
+                        simple_text = ''.join(ch for ch in message['text'] if ch not in string.punctuation).lower()
+                        log(message.get('text').encode('utf-8'))
+                        for food in find_foods(simple_text, 'foods.txt'):
+                            log('food: ' + food)
+                        for drug in find_drugs(simple_text, 'drugs.txt'):
+                            log('drug: ' + drug)
 
         sys.stdout.flush()
         sys.stderr.flush()
@@ -217,11 +232,13 @@ if __name__ == '__main__':
 
     # db = pymongo.MongoClient('localhost', args.mongo_port)['tweet']
 
-    print "Getting stream in " + args.neighborhood + " on port " + str(args.mongo_port)
+    print "Getting stream in " + args.neighborhood
 
     timestamp = time.time()
-    outFile = open('logs/output_drugs_%s.log' % args.neighborhood, 'w')
+    outFile = open('logs/output_%s.log' % args.neighborhood, 'w')
+    errFile = open('logs/error_%s.log' % args.neighborhood, 'w')
     sys.stdout = outFile
+    sys.stderr = errFile
 
     ts = TwitterStream(args.neighborhood)
     ts.setup_connection()
