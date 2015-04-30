@@ -21,7 +21,6 @@
 import sys, argparse, inspect, time, pycurl, urllib, json, ConfigParser, ujson
 import requests, HTMLParser, traceback, shapely.geometry
 import oauth2 as oauth
-from pymongo import Connection
 
 API_ENDPOINT_URL = 'https://stream.twitter.com/1.1/statuses/filter.json'
 
@@ -216,7 +215,7 @@ if __name__ == '__main__':
     parser.add_argument('--neighborhood', '-n', required=True)
     args = parser.parse_args()
 
-    # db = Connection('localhost', args.mongo_port)['tweet']
+    # db = pymongo.MongoClient('localhost', args.mongo_port)['tweet']
 
     print "Getting stream in " + args.neighborhood + " on port " + str(args.mongo_port)
 
